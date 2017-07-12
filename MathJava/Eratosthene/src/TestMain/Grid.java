@@ -17,7 +17,6 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-
  
 public class Grid extends JPanel {
 	
@@ -53,14 +52,13 @@ public class Grid extends JPanel {
 		for (int i=0; i<nb_square_per_lines*nb_square_per_lines ; i++)
 		{
 			this.posCX[i] = -100;
-			this.posCY[i]=-100;			
+			this.posCY[i]=-100;	
 		}
 		
-		this.cruxColor=new Color(0,0,255);
-			
+		this.cruxColor=new Color(0,0,255);			
 	}
 	
-   private void DrawRectangle(Graphics g, int x1, int y1, int width, int height, int taillePolice, String text)
+    public void DrawRectangle(Graphics g, int x1, int y1, int width, int height, int taillePolice, String text)
    {	   
 	   // Draw rectangle
 	    g.setColor(new Color(255, 255, 200));
@@ -75,7 +73,7 @@ public class Grid extends JPanel {
 
    }  
    
-   private void DrawCrux(Graphics g, int x1, int y1, int x2, int y2, Color color)
+   public void DrawCrux(Graphics g, int x1, int y1, int x2, int y2, Color color)
    {
 	    Graphics2D g2d = (Graphics2D)g;
 	    int thin = 5;
@@ -85,7 +83,7 @@ public class Grid extends JPanel {
 	    g2d.drawLine(x2-thin, y1+thin, x1+thin, y2-thin);
    }   
    
-   private void DrawTitle(Graphics g, String title, int x1, int y1)
+   public void DrawTitle(Graphics g, String title, int x1, int y1)
    {
 	    Graphics2D g2d = (Graphics2D)g;
 	    int thin = 5;
@@ -94,7 +92,7 @@ public class Grid extends JPanel {
 	    g2d.drawString(title, x1, y1);
    }    
    
-   private void DrawCircle(Graphics g, int x1, int y1, int diameter)
+   public void DrawCircle(Graphics g, int x1, int y1, int diameter)
    {
 	    Graphics2D g2d = (Graphics2D)g;
 	    int thin = 5;
@@ -104,7 +102,7 @@ public class Grid extends JPanel {
 	    g2d.drawOval(x1, y1, diameter, diameter);  
    }
    
-   private void animateCircle(Graphics g, int diameter)
+  public void animateCircle(Graphics g, int diameter)
    {
 	    int alpha = 127; // 50% transparent
 	    Color myColour = new Color(255, 0, 0, alpha);	   
@@ -207,6 +205,7 @@ public class Grid extends JPanel {
    {
 	   this.posCX[i] = posCX;
    }  
+ 
    
   public void paintComponent(Graphics g){
 	  
@@ -215,6 +214,8 @@ public class Grid extends JPanel {
 	  g.setColor(bgColor);//background color
 	  g.fillRect(0,0,this.getWidth(),this.getHeight());
 	  
+	  
+	   
 	   // Size of Panel
 	   x1 = (this.getWidth()-size_square)/nb_square_per_lines; 
 	   y1 = (this.getHeight()-size_square)/nb_square_per_lines;
@@ -228,18 +229,23 @@ public class Grid extends JPanel {
 	         DrawRectangle(g, x1+i*(size_square+offset), y1+j*(size_square+offset), size_square, size_square, 20, Integer.toString(i+10*j));
 	      } 
 	   }
-	     	   	   
+	    	     	   	   
 	   System.out.println("getPosX(): "+getPosX()+", getPosY(): "+getPosY()+", getTitle: "+getTitle()+"");
 	   
+	
+	    
 	   animateCircle(g,size_square);	   
-	   
+	
 	   for (int i=0; i<nb_square_per_lines*nb_square_per_lines; i++)
 	   {
 	      DrawCrux(g, getCPosX(i), getCPosY(i), getCPosX(i)+size_square, getCPosY(i)+size_square, getCruxColor());
-	   }  
-	   
+	   } 	   	   
+	   	 
 	   // Display text
-	   DrawTitle(g, getTitle(), 80, 50);
-  }   
+	   DrawTitle(g, getTitle(), 80, 50);	   	      
+	   	      	  
+	   
+  }  
+  
   
 }
